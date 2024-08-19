@@ -16,3 +16,7 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, category_slug, product_id):
     pass
+
+
+def product_create(request, category_slug, product_id):
+    pass
