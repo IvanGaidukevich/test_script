@@ -1,0 +1,58 @@
+{% extends "shop/base.html" %}
+
+{% load static %}
+
+{% block title %} Личный кабинет {% endblock %}
+{% block content %}
+    <h2>Мой личный кабинет</h2>
+    <hr>
+    <table>
+        <tr>
+            <th>Имя пользователя:</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Дата рождения:</th>
+            <td>{{ user.profile.birth_date }}</td>
+        </tr>
+        <tr>
+            <th>Город</th>
+            <td>{{ user.profile.city }}</td>
+        </tr>
+    </table>
+
+    <h3>Активные заказы</h3>
+        {% for order in active_orders %}
+        <ul>
+            <li>
+                Заказ № {{ order.id }} от {{order.created_at|date:"d.m.Y H:i" }} на сумму {{ order.get_total_cost }}
+                 | <a href="{% url 'orders:cancel_order' order.id %}">Отменить заказ</a>
+            </li>
+        </ul>
+            {%  empty %}
+                 <p> У вас пока нет заказов</p>
+        {%  endfor %}
+<hr>
+        <h3>Завершенные заказы</h3>
+        {% for order in completed_orders %}
+        <ul>
+            <li>
+                Заказ № {{ order.id }} от {{order.created_at|date:"d.m.Y H:i" }} на сумму {{ order.get_total_cost }}
+            </li>
+        </ul>
+            {%  empty %}
+                 <p>Ни один заказ пока не выполнен</p>
+        {%  endfor %}
+<hr>
+        <h3>Отмененные заказы</h3>
+        {% for order in canceled_orders %}
+        <ul>
+            <li>
+                Заказ № {{ order.id }} от {{order.created_at|date:"d.m.Y H:i" }} на сумму {{ order.get_total_cost }}
+            </li>
+        </ul>
+            {%  empty %}
+                 <p> У вас пока нет отмененных заказов</p>
+        {%  endfor %}
+
+{% endblock %}

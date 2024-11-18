@@ -1,0 +1,10 @@
+<html lang="ru">
+    <div>
+    <h2>Логин</h2>
+    <form method="post">
+    {% csrf_token %}
+        {{ form.as_div }}
+        <input type="submit" value="Login">
+    </form>
+    </div>
+</html>
